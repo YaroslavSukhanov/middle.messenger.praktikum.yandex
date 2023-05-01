@@ -1,0 +1,56 @@
+.chat-card {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    height: 73px;
+    width: 290px;
+    padding: 12px 0;
+    background-color: var(--main-color);
+    color: var(--text-color);
+    border-bottom: 1px solid #525252;
+
+    &__name {
+        font-size: 13px;
+        font-weight: 600;
+    }
+    &__last-message {
+        font-size: 12px;
+        font-weight: 500;
+        color: #999999;
+    }
+    &__time {
+        font-size: 9px;
+        font-weight: 500;
+        color: #999999;
+    }
+    &__avatar {
+        width: 47px;
+        height: 47px;
+    }
+    &__info {
+        display: flex;
+        flex-direction: column;
+        width: 25px;
+        justify-content: space-between
+    }
+    &__content {
+        padding: 0 10px;
+        width: 218px;
+    }
+    &__sticker {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        font-weight: 500;
+        font-size: 11px;
+        height: 20px;
+        width: 20px;
+        background-color: #3369F3;
+        border-radius:20px;
+    }
+    &__avatar {
+        display: flex;
+        align-self: center;
+        border-radius:47px;
+    }
+}
