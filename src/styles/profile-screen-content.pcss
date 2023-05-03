@@ -1,0 +1,90 @@
+.profile-screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__avatar {
+        border-radius: 65px;
+        cursor: pointer;
+    }
+    &__avatar:hover {
+        opacity: 0.25;
+        transition: all 200ms ease-in-out;
+        transform: scale(1.1);
+    }
+    &__fields {
+        box-sizing: content-box;
+        min-width: 510px;
+        padding: 44px 0 0 0;
+        margin: 0;
+    }
+    &__field {
+        padding: 0 5px;
+        display: flex;
+        justify-content: space-between;
+        list-style-type: none;
+        height: 31px;
+        border-bottom: 1px solid #525252;
+        border-radius: 5px;
+    }
+    &__field:hover {
+        transition: all 300ms ease-in-out;
+        background-color: #525252;
+    }
+    &__field-name {
+        font-weight: 500;
+        line-height: 13px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        color: var(--text-color);
+    }
+    &__input {
+        box-sizing: border-box;
+        background-color: #212121;
+        border: 0;
+        flex-grow: 2;
+        max-width: 100%;
+        color: white;
+        text-align: end;
+    }
+    &__input:focus {
+        outline: none;
+    }
+    &__input:hover {
+        transition: all 300ms ease-in-out;
+        background-color: #525252;
+    }
+    &__user-name {
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+    }
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        padding-top: 40px;
+    }
+    &__button {
+        height: 31px;
+        min-width: 510px;
+        text-align: start;
+        color: var(--text-color);
+        background-color: #212121;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+    }
+    &__button_alert-color {
+        color: #FF0000;
+    }
+    &__button:hover {
+        transition: all 300ms ease-in-out;
+        background-color: #525252;
+    }
+    &__button:active .profile-screen-content__avatar {
+        display: block;
+    }
+}
+
