@@ -4,9 +4,9 @@
     justify-content: flex-start;
     height: 73px;
     padding: 12px 0;
-    background-color: var(--main-color);
+    background-color: var(--main-background-color);
     color: var(--text-color);
-    border-bottom: 1px solid #525252;
+    border-bottom: 1px solid var(--second-background-color);
 
     &__name {
         font-size: 13px;
@@ -21,10 +21,6 @@
         font-size: 9px;
         font-weight: 500;
         color: #999999;
-    }
-    &__avatar {
-        width: 47px;
-        height: 47px;
     }
     &__info {
         display: flex;
@@ -48,6 +44,8 @@
         border-radius:20px;
     }
     &__avatar {
+        width: 47px;
+        height: 47px;
         display: flex;
         align-self: center;
         border-radius:47px;
