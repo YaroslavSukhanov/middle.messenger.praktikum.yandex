@@ -7,36 +7,38 @@
         <div>
             <a class="navigation-link" href="/">Go to main ></a>
         </div>
-        <ul class="fields">
-            <li class="fields__field">
-                <p class="fields__field-name">Почта</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your mail">
-            </li>
-            <li class="fields__field">
-                <p class="fields__field-name">Логин</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your login">
-            </li>
-            <li class="fields__field">
-                <p class="fields__field-name">Имя</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your name">
-            </li>
-            <li class="fields__field">
-                <p class="fields__field-name">Фамилия</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your surname">
-            </li>
-            <li class="fields__field">
-                <p class="fields__field-name">Имя в чате</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your chatname">
-            </li>
-            <li class="fields__field">
-                <p class="fields__field-name">Телефон</p>
-                <input class="fields__input" name="chat-searchbar" placeholder="Your phone number">
-            </li>
-        </ul>
+        <form class="fields-wrapper">
+            <ul class="fields">
+                <li class="fields__field">
+                    <p class="fields__field-name">Почта</p>
+                    <input class="fields__input" name="email" placeholder="Your mail">
+                </li>
+                <li class="fields__field">
+                    <p class="fields__field-name">Логин</p>
+                    <input class="fields__input" name="login" placeholder="Your login">
+                </li>
+                <li class="fields__field">
+                    <p class="fields__field-name">Имя</p>
+                    <input class="fields__input" name="first_name" placeholder="Your name">
+                </li>
+                <li class="fields__field">
+                    <p class="fields__field-name">Фамилия</p>
+                    <input class="fields__input" name="second_name" placeholder="Your surname">
+                </li>
+                <li class="fields__field">
+                    <p class="fields__field-name">Имя в чате</p>
+                    <input class="fields__input" name="display_name" placeholder="Your chatname">
+                </li>
+                <li class="fields__field">
+                    <p class="fields__field-name">Телефон</p>
+                    <input class="fields__input" name="phone" placeholder="Your phone number">
+                </li>
+            </ul>
+        </form>
         <div class="actions">
-            <button class="actions__button">Изменить данные</button>
-            <button class="actions__button">Изменить пароль</button>
-            <button class="actions__button actions__button_alert-color">Выйти</button>
+            <button type="button" class="actions__button">Изменить данные</button>
+            <button type="button" class="actions__button">Изменить пароль</button>
+            <button type="button" class="actions__button actions__button_alert-color">Выйти</button>
         </div>
     </div>
 </div>
