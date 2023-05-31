@@ -1,7 +1,4 @@
 {
-  "ts-node": {
-    "files": true
-  },
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
@@ -15,5 +12,5 @@
       "ESNext",
       "DOM"
     ]
-  },
+  }
 }
