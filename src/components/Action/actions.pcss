@@ -12,9 +12,13 @@
     outline: none;
     border-radius: 5px;
 }
-&__button_alert-color {
+&__button_invalid {
     color: #FF0000;
 }
+  &__button_invalid:active {
+    animation: swing 0.1s ease;
+    animation-iteration-count: 1;
+  }
 &__button_accept-color {
     color:#3369f3;
 }
@@ -25,4 +29,30 @@
 &__button:active .profile-screen-content__avatar {
     display: block;
 }
+
+  &__button:active .profile-screen-content__avatar {
+    display: block;
+  }
+}
+
+
+@keyframes swing {
+  15% {
+    transform: translateX(9px);
+  }
+  30% {
+    transform: translateX(-9px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-6px);
+  }
+  65% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

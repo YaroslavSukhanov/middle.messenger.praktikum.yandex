@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "no-param-reassign": 0,
+    "import/prefer-default-export": "off",
+    "implicit-arrow-linebreak": "off",
+    "no-unused-vars": "off",
+    "no-shadow": "off",
+    "no-restricted-syntax": "off",
+    "no-useless-constructor": "off" ,
+    "class-methods-use-this": "off"
+  },
+  "extends": "airbnb",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true
+  }
+}
