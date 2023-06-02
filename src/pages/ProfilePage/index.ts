@@ -2,8 +2,9 @@ import Block from '../../core/Block.ts';
 import template from './profile-screen.hbs';
 import { Field } from '../../components/Field/index.ts';
 import { Action } from '../../components/Action/index.ts';
-import { setStorage } from '../../utils/setStorage.ts';
-import { validate } from '../../utils/validation.ts';
+import {
+  setStorage, controlInvalidState, getTip, validate,
+} from '../../utils/index.ts';
 
 export type TFormValues = {
   mail: string;
@@ -28,42 +29,128 @@ class ProfilePage extends Block {
       label: 'Mail',
       name: 'mail',
       placeholder: 'Mail',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.mailField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ mailField: value });
+          setStorage(evt, profileStore);
+        },
+        focusout: () => {
+          const field = this.children.mailField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.mailField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.loginField = new Field({
       label: 'Login',
       name: 'login',
       placeholder: 'Login',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.loginField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ loginField: value });
+          setStorage(evt, profileStore);
+        },
+        focusout: () => {
+          const field = this.children.loginField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.loginField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.nameField = new Field({
       label: 'Name',
       name: 'name',
       placeholder: 'Name',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.nameField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ nameField: value });
+          setStorage(evt, profileStore);
+        },
+        focusout: () => {
+          const field = this.children.nameField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.nameField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.surnameField = new Field({
       label: 'Surname',
       name: 'surname',
       placeholder: 'Surname',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.surnameField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ surnameField: value });
+          setStorage(evt, profileStore);
+        },
+        focusout: () => {
+          const field = this.children.surnameField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.surnameField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.nicknameField = new Field({
       label: 'Nickname',
       name: 'nickname',
       placeholder: 'Nickname',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.nicknameField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ nicknameField: value });
+          setStorage(evt, profileStore);
+        },
+      },
+      focusout: () => {
+        const field = this.children.nicknameField.element.querySelector('input');
+        const invalid = validate([{ [field.name]: field.value }]);
+        const errorText = getTip(invalid, field);
+        this.children.nicknameField.setProps({ error: errorText });
+        controlInvalidState(invalid, field);
+      },
     });
+
     this.children.phoneField = new Field({
       label: 'Phone number',
       name: 'phone',
       placeholder: 'Phone',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, profileStore) },
+      value: this.props.phoneField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ phoneField: value });
+          setStorage(evt, profileStore);
+        },
+        focusout: () => {
+          const field = this.children.phoneField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.phoneField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
+
     this.children.changeDataAction = new Action({
       label: 'Изменить данные (Submit)',
       events: {
@@ -104,6 +191,7 @@ class ProfilePage extends Block {
   }
 
   protected render(): DocumentFragment {
+    this.init();
     return this.compile(template, { ...this.props });
   }
 }

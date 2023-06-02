@@ -1,4 +1,11 @@
 <li class="fields__field">
+  <div class="fields__content">
   <p class="fields__field-name">{{label}}</p>
   <input class="fields__input" value="{{value}}" name={{name}} placeholder={{placeholder}}>
+  </div>
+  {{#if error}}
+    <div class="fields__tip__wrapper">
+      <p class="fields__tip">{{error}}</p>
+    </div>
+  {{/if}}
 </li>

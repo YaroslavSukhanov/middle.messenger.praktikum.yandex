@@ -1,9 +1,10 @@
 import Block from '../../core/Block.ts';
 import template from './sign-in-screen.hbs';
 import { Field } from '../../components/Field/index.ts';
-import { setStorage } from '../../utils/setStorage.ts';
 import { Action } from '../../components/Action/index.ts';
-import { validate } from '../../utils/validation.ts';
+import {
+  setStorage, controlInvalidState, getTip, validate,
+} from '../../utils/index.ts';
 
 const signInStore = {};
 
@@ -18,18 +19,46 @@ class SignInPage extends Block {
       label: 'Login',
       name: 'login',
       placeholder: 'Login',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, signInStore) },
+      value: this.props.loginField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ loginField: value });
+          setStorage(evt, signInStore);
+        },
+        focusout: () => {
+          const field = this.children.loginField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.loginField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.passwordField = new Field({
       label: 'Password',
       name: 'password',
       placeholder: 'Password',
-      events: { change: (evt: KeyboardEvent) => setStorage(evt, signInStore) },
+      value: this.props.passwordField,
+      events: {
+        change: (evt: KeyboardEvent) => {
+          const { value } = evt.target;
+          this.setProps({ passwordField: value });
+          setStorage(evt, signInStore);
+        },
+        focusout: () => {
+          const field = this.children.passwordField.element.querySelector('input');
+          const invalid = validate([{ [field.name]: field.value }]);
+          const errorText = getTip(invalid, field);
+          this.children.passwordField.setProps({ error: errorText });
+          controlInvalidState(invalid, field);
+        },
+      },
     });
 
     this.children.signInGoAction = new Action({
-      label: 'Go (Submit)!',
+      label: 'Go! (Submit)',
       events: {
         click: (evt: PointerEvent) => {
           evt.preventDefault();
@@ -61,6 +90,7 @@ class SignInPage extends Block {
   }
 
   protected render(): DocumentFragment {
+    this.init();
     return this.compile(template, { ...this.props });
   }
 }
