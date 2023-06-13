@@ -5,8 +5,14 @@ import { Action } from '../../components/Action/index.ts';
 import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
+import { authService } from '../../services/auth.service.ts';
 
-const signInStore = {};
+type TSignInStore = {
+  login: string;
+  password: string;
+}
+
+const signInStore: TSignInStore = {};
 
 class SignInPage extends Block {
   // eslint-disable-next-line no-useless-constructor
@@ -72,15 +78,21 @@ class SignInPage extends Block {
             }
           }
           const invalid = validate(listOfFields);
+
           if (invalid) {
             this.children.signInGoAction.element?.classList.add('actions__button_invalid');
           } else {
             this.children.signInGoAction.element?.classList.remove('actions__button_invalid');
-            console.log(signInStore);
+
+            window.store.dispatch(authService.logIn, {
+              login: signInStore.login,
+              password: signInStore.password,
+            });
           }
         },
       },
     });
+
     this.children.signUpAction = new Action({
       label: 'Sign Up',
       events: {

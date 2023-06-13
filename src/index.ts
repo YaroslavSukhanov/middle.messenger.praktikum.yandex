@@ -6,6 +6,15 @@ import { signUpPage } from './pages/SignUpPage/index.ts';
 import { signInPage } from './pages/SignInPage/index.ts';
 import { errorPage500 } from './pages/500ErrorPage/index.ts';
 import { errorPage400 } from './pages/400ErrorPage/index.ts';
+import { Store } from './core/Store.ts';
+import { AppState } from './types/appTypes.ts';
+
+declare global {
+  interface Window {
+    store: Store<AppState>;
+    // router: HashRouter;
+  }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   const pages = [
@@ -37,7 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
     case '/400-error':
       renderDOM(errorPage400);
       break;
-    default: renderDOM(allPages);
+    default: renderDOM(signUpPage);
       break;
   }
 });

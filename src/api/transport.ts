@@ -5,13 +5,12 @@ type TDate = {
 }
 
 type TOptions = {
-    headers: string;
-    data: TDate;
-    method: METHODS;
-    timeout: number
+    data?: TDate;
+    timeout?: number
+    method?: METHODS;
 }
 
-type TRequestMethod = (url: string, options: TOptions) => Promise<unknown>
+type TRequestMethod = (url: string, options?: Partial<TOptions>) => Promise<unknown>
 
 interface IHTTPTransport<T> {
     get: T;
@@ -26,8 +25,8 @@ function queryStringify(data: TDate) {
 }
 
 class HTTPTransport implements IHTTPTransport<TRequestMethod> {
-  get = (url: string, options: TOptions) => {
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+  get = (url: string, options?: TOptions) => {
+    this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
   };
 
   delete = (url: string, options: TOptions) => {
@@ -54,6 +53,7 @@ class HTTPTransport implements IHTTPTransport<TRequestMethod> {
         xhr.open(method, wholeUrl);
       } else {
         xhr.open(method, url);
+        console.log('открыли');
       }
 
       xhr.onload = function () {
@@ -64,10 +64,13 @@ class HTTPTransport implements IHTTPTransport<TRequestMethod> {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
       xhr.timeout = timeout;
+      xhr.withCredentials = true;
+      xhr.setRequestHeader('Content-Type', 'application/json');
 
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
+        console.log(JSON.stringify(data), 'sent');
         xhr.send(JSON.stringify(data));
       }
     });
