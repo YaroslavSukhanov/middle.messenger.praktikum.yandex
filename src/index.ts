@@ -7,7 +7,7 @@ import { signInPage } from './pages/SignInPage/index.ts';
 import { errorPage500 } from './pages/500ErrorPage/index.ts';
 import { errorPage400 } from './pages/400ErrorPage/index.ts';
 import { Store } from './core/Store.ts';
-import { AppState } from './types/appTypes.ts';
+import { AppState, defaultState } from './types/appTypes.ts';
 
 declare global {
   interface Window {
@@ -26,6 +26,30 @@ window.addEventListener('DOMContentLoaded', () => {
     { link: '/500-error', label: '500 Error' },
   ];
   const allPages = new AllPages({ pages });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const store = new Store<AppState>(defaultState);
+
+    /**
+     * Помещаем роутер и стор в глобальную область для доступа в хоках with*
+     * @warning Не использовать такой способ на реальный проектах
+     */
+    window.store = store;
+
+    store.on('changed', (prevState, nextState) => {
+      console.log(
+        '%cstore updated',
+        'background: #222; color: #bada55',
+        nextState,
+      );
+    });
+
+
+    /**
+     * Загружаем данные для приложения
+     */
+    store.dispatch(initApp);
+  });
 
   switch (window.location.pathname) {
     case '/home':
@@ -46,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
     case '/400-error':
       renderDOM(errorPage400);
       break;
-    default: renderDOM(signUpPage);
+    default: renderDOM(profilePage);
       break;
   }
 });

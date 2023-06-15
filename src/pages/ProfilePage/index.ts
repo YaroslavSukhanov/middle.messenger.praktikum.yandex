@@ -25,14 +25,20 @@ class ProfilePage extends Block {
   }
 
   protected init() {
+    const state = window.store.getState();
+    const {
+      id, login, firstName, displayName, secondName, phone, email, avatar,
+    } = state.user;
+
     this.children.mailField = new Field({
       label: 'Mail',
       name: 'mail',
       placeholder: 'Mail',
-      value: this.props.mailField,
+      value: email,
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
+          window.store.dispatch(state.user?.email);
           this.setProps({ mailField: value });
           setStorage(evt, profileStore);
         },

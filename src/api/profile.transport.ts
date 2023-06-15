@@ -14,9 +14,9 @@ type TSignUpRequest = {
   'phone': string
 }
 
-const baseUrl = 'https://ya-praktikum.tech/api/v2/auth/';
+const baseUrl = 'https://ya-praktikum.tech/api/v2/user/';
 
-class AuthTransport {
+class ProfileTransport {
   login(data: TLoginRequestData): void {
     transport.post(`${baseUrl}signin`, { data, timeout: 1000 });
   }
@@ -34,4 +34,4 @@ class AuthTransport {
   }
 }
 
-export const authTransport = new AuthTransport();
+export const profileTransport = new ProfileTransport();

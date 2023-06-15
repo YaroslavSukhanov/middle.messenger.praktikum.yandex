@@ -5,8 +5,18 @@ import { Action } from '../../components/Action/index.ts';
 import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
+import { authService } from '../../services/auth.service.ts';
 
-const signUpStore = {};
+type TSignUpStore = {
+  name: string
+  surname: string
+  login: string
+  mail: string
+  password: string
+  phone: string
+}
+
+const signUpStore: TSignUpStore = {};
 
 export type TSignUpPageProps = {
   error?: string;
@@ -22,7 +32,8 @@ class SignUpPage extends Block {
       label: 'Mail',
       name: 'mail',
       placeholder: 'Mail',
-      value: this.props.mailField,
+      // value: this.props.mailField,
+      value: 'ss@gmail.com',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -43,7 +54,8 @@ class SignUpPage extends Block {
       label: 'Login',
       name: 'login',
       placeholder: 'Login',
-      value: this.props.loginField,
+      // value: this.props.loginField,
+      value: 'sssss',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -64,7 +76,8 @@ class SignUpPage extends Block {
       label: 'Name',
       name: 'name',
       placeholder: 'Name',
-      value: this.props.nameField,
+      // value: this.props.nameField,
+      value: "Ssssss",
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -85,7 +98,8 @@ class SignUpPage extends Block {
       label: 'Surname',
       name: 'surname',
       placeholder: 'Surname',
-      value: this.props.surnameField,
+      // value: this.props.surnameField,
+      value: 'Ssssssss',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -106,7 +120,8 @@ class SignUpPage extends Block {
       label: 'Phone number',
       name: 'phone',
       placeholder: 'Phone',
-      value: this.props.phoneField,
+      // value: this.props.phoneField,
+      value: '89827743656',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -127,7 +142,8 @@ class SignUpPage extends Block {
       label: 'Password',
       name: 'password',
       placeholder: 'Password',
-      value: this.props.passwordField,
+      // value: this.props.passwordField,
+      value: '1Sssssss',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -148,7 +164,8 @@ class SignUpPage extends Block {
       label: 'Password again',
       name: 'repeatedPassword',
       placeholder: 'Password',
-      value: this.props.repeatedPasswordField,
+      // value: this.props.repeatedPasswordField,
+      value: '1Sssssss',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -184,6 +201,16 @@ class SignUpPage extends Block {
             this.children.signUpAction.element?.classList.add('actions__button_invalid');
           } else {
             this.children.signUpAction.element?.classList.remove('actions__button_invalid');
+            console.log(signUpStore, 'signUpStore');
+
+            window.store.dispatch(authService.signUp, {
+              first_name: signUpStore.name,
+              second_name: signUpStore.surname,
+              login: signUpStore.login,
+              email: signUpStore.mail,
+              password: signUpStore.password,
+              phone: signUpStore.phone,
+            });
           }
         },
       },

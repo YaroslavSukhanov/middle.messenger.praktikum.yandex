@@ -37,7 +37,7 @@ class HTTPTransport implements IHTTPTransport<TRequestMethod> {
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   };
 
-  post = (url: string, options: TOptions) => {
+  post = (url: string, options?: TOptions) => {
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   };
 
