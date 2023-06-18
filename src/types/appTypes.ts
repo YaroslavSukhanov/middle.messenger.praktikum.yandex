@@ -5,6 +5,7 @@ export interface AppState {
   user: User | null;
   isLoading: boolean;
   userId: number | null;
+  appIsInited: boolean
 }
 
 export const defaultState: AppState = {
@@ -12,4 +13,5 @@ export const defaultState: AppState = {
   user: null,
   isLoading: false,
   userId: null,
+  appIsInited: false,
 };

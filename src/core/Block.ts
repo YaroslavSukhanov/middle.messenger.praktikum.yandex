@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus.ts';
 
 // Нельзя создавать экземпляр данного класса
-class Block<P extends Record<string, any> = any> {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',

@@ -5,6 +5,7 @@ import { Action } from '../../components/Action/index.ts';
 import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
+import { withStore } from '../../utils/wothStore.ts';
 
 export type TFormValues = {
   mail: string;
@@ -16,6 +17,9 @@ export type TFormValues = {
   password?: string;
 }
 
+// const state = window.store.getState();
+// console.log(state, 'state');
+
 const profileStore: Partial<TFormValues> = {};
 
 class ProfilePage extends Block {
@@ -25,20 +29,21 @@ class ProfilePage extends Block {
   }
 
   protected init() {
-    const state = window.store.getState();
-    const {
-      id, login, firstName, displayName, secondName, phone, email, avatar,
-    } = state.user;
+    console.log(window, 'window.store.getState()');
+    // const state = window.store.getState();
+    // const {
+    //   id, login, firstName, displayName, secondName, phone, email, avatar,
+    // } = state.user;
 
     this.children.mailField = new Field({
       label: 'Mail',
       name: 'mail',
       placeholder: 'Mail',
-      value: email,
+      value: this.props.mail,
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
-          window.store.dispatch(state.user?.email);
+          // window.store.dispatch(state.user?.email);
           this.setProps({ mailField: value });
           setStorage(evt, profileStore);
         },
@@ -203,3 +208,4 @@ class ProfilePage extends Block {
 }
 
 export const profilePage = new ProfilePage();
+// export default withStore(profilePage);

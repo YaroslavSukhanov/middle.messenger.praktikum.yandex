@@ -1,46 +1,88 @@
-// import * as isEqual from '../../utils/isEqual.ts';
-// import { renderDom } from '../../utils/renderDom.ts';
-//
-// export default class Route {
-//   private pathname: string;
-//
-//   private blockClass: Record<string, any> | null;
-//
-//   private block: Record<string, any> | null;
-//
-//   private props: Record<string, unknown>;
-//
-//   constructor(pathname, view, props) {
-//     this.pathname = pathname;
-//     this.blockClass = view;
-//     this.block = null;
-//     this.props = props;
-//   }
-//
-//   navigate(pathname) {
-//     if (this.match(pathname)) {
-//       this._pathname = pathname;
-//       this.render();
-//     }
-//   }
-//
-//   leave() {
-//     if (this._block) {
-//       this._block.hide();
-//     }
-//   }
-//
-//   match(pathname) {
-//     return isEqual(pathname, this._pathname);
-//   }
-//
-//   render() {
-//     if (!this._block) {
-//       this._block = new this._blockClass();
-//       renderDom(this._props.rootQuery, this._block);
-//       return;
-//     }
-//
-//     this._block.show();
-//   }
-// }
+import Block from '../Block.ts';
+import renderDOM from '../../utils/renderDom.ts';
+
+function isEqual(lhs: any, rhs: any) {
+  return lhs === rhs;
+}
+
+export interface IRouterProps {
+  rootQuery: string;
+  exact: boolean;
+}
+
+export default class Route {
+  private _pathname: string;
+
+  private _blockClass: Block;
+
+  private _block: Block;
+
+  private _props: IRouterProps;
+
+  private _componentProps: any;
+
+  private _params: {};
+
+  private _needAuth: boolean;
+
+  private _onUnautorized: any;
+
+  private _redirect: () => void;
+
+  constructor(
+    pathname: string,
+    view: Block,
+    props: IRouterProps,
+    componentProps: any,
+    needAuth: boolean,
+    onUnautorized: boolean,
+    redirect: () => void,
+  ) {
+    this._pathname = pathname;
+    this._blockClass = view;
+    this._props = props;
+    this._needAuth = needAuth;
+    this._onUnautorized = onUnautorized;
+    this._componentProps = componentProps;
+    this._params = this.getParams();
+    this._redirect = redirect;
+  }
+
+  getParams(): {} {
+    return Object.fromEntries((new URLSearchParams(document.location.search)).entries());
+  }
+
+  leave() {
+    this._block?.destroy();
+  }
+
+  match(pathname: string) {
+    if (this._props.exact) {
+      return isEqual(pathname, this._pathname);
+    }
+    return ~pathname.indexOf(this._pathname);
+  }
+
+  checkAuth() {
+    if (this._needAuth) {
+      if (typeof this._onUnautorized === 'function') {
+        return this._onUnautorized(this._pathname);
+      }
+    }
+    return true;
+  }
+
+  render() {
+    if (this.checkAuth()) {
+      if (!this._block) {
+        // @ts-ignore
+        this._block = new this._blockClass({ ...this._componentProps, routerParams: this.getParams() });
+      } else {
+        this._block.setProps({ ...this._componentProps, routerParams: this.getParams() });
+      }
+      renderDOM(this._block, this._props.rootQuery);
+    } else {
+      this._redirect();
+    }
+  }
+}

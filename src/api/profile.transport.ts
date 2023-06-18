@@ -1,36 +1,23 @@
 import transport from './transport.ts';
-
-type TLoginRequestData = {
-  login: string;
-  password: string;
-}
-
-type TSignUpRequest = {
-  'first_name': string,
-  'second_name': string,
-  'login': string,
-  'email': string,
-  'password': string,
-  'phone': string
-}
+import { UserDTO } from './types.ts';
 
 const baseUrl = 'https://ya-praktikum.tech/api/v2/user/';
 
 class ProfileTransport {
-  login(data: TLoginRequestData): void {
-    transport.post(`${baseUrl}signin`, { data, timeout: 1000 });
+  changeInfo(data: Partial<UserDTO>): void {
+    transport.put(`${baseUrl}profile`, { data, timeout: 1000 });
   }
 
-  signUp(data: TSignUpRequest) {
-    transport.post(`${baseUrl}signup`, { data, timeout: 1000 });
+  changeAvatar(formData: FormData) {
+    transport.put(`${baseUrl}profile/avatar`, { data: formData, timeout: 1000 });
   }
 
-  getOwnInfo(): void {
-    transport.get(`${baseUrl}user`);
+  changePassword(data: object): void {
+    transport.put(`${baseUrl}password`, { data });
   }
 
-  logOut(): void {
-    transport.post(`${baseUrl}logout`);
+  getUserInfo(id: string): void {
+    transport.get(`${baseUrl}${id}`);
   }
 }
 

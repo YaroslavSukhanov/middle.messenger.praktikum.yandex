@@ -1,4 +1,4 @@
-import * as EventBus from './EventBus.ts';
+import { EventBus } from './EventBus.ts';
 
 export type Action<State> = (
   dispatch: Dispatch<State>,

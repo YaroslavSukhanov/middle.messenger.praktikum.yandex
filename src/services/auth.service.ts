@@ -6,13 +6,13 @@ import { Dispatch } from '../core/Store.ts';
 import { AppState } from '../types/appTypes.ts';
 
 class AuthService {
-  async logIn(dispatch, state, action) {
+  async logIn(dispatch, state, payload) {
     dispatch({ isLoading: true });
 
-    const response = await authTransport.login(action);
+    const response = await authTransport.login(payload);
 
     if (hasError(response)) {
-      dispatch({ isLoading: true, loginFormError: response.reason });
+      dispatch({ isLoading: false, loginFormError: response.reason });
     }
 
     const responseUser = await authTransport.getOwnInfo();
