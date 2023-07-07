@@ -1,5 +1,8 @@
 import Block from '../../core/Block.ts';
 import template from './chat-list-header.hbs';
+import { withRouter } from "../../utils/withRouter";
+import { withStore } from "../../utils/withStore";
+import { ChatCard } from "../ChatCard";
 
 class ChatListHeader extends Block {
   // eslint-disable-next-line no-useless-constructor
@@ -13,3 +16,5 @@ class ChatListHeader extends Block {
 }
 
 export const chatListHeader = new ChatListHeader();
+// export default withStore(ChatListHeader);
+

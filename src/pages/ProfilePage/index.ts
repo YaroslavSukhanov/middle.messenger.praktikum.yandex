@@ -5,7 +5,8 @@ import { Action } from '../../components/Action/index.ts';
 import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
-import { withStore } from '../../utils/wothStore.ts';
+import { withStore } from '../../utils/withStore.ts';
+import { withRouter } from "../../utils/withRouter";
 
 export type TFormValues = {
   mail: string;
@@ -207,5 +208,5 @@ class ProfilePage extends Block {
   }
 }
 
-export const profilePage = new ProfilePage();
-// export default withStore(profilePage);
+// export const profilePage = new ProfilePage();
+export default withRouter(withStore(ProfilePage));

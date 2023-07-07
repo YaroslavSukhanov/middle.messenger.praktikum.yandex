@@ -6,6 +6,9 @@ import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
 import { authService } from '../../services/auth.service.ts';
+import { withRouter } from '../../utils/withRouter';
+import { withStore } from '../../utils/withStore';
+import { router } from '../../router';
 
 type TSignUpStore = {
   name: string
@@ -16,7 +19,14 @@ type TSignUpStore = {
   phone: string
 }
 
-const signUpStore: TSignUpStore = {};
+const signUpStore: TSignUpStore = {
+  name: 'ss@gmail.com',
+  surname: 'Ssssssss',
+  login: 'sssss',
+  mail: 'ss@gmail.com',
+  password: '1Sssssss',
+  phone: '89827743656',
+};
 
 export type TSignUpPageProps = {
   error?: string;
@@ -77,7 +87,7 @@ class SignUpPage extends Block {
       name: 'name',
       placeholder: 'Name',
       // value: this.props.nameField,
-      value: "Ssssss",
+      value: 'Ssssss',
       events: {
         change: (evt: KeyboardEvent) => {
           const { value } = evt.target;
@@ -218,7 +228,7 @@ class SignUpPage extends Block {
     this.children.signInPasswordAction = new Action({
       label: 'Sign In',
       events: {
-        click: (data: object) => console.log(data),
+        click: () => router.go('/signIn'),
       },
     });
   }
@@ -229,4 +239,5 @@ class SignUpPage extends Block {
   }
 }
 
-export const signUpPage = new SignUpPage({ error: 'OOOOOOOO' });
+// export const signUpPage = new SignUpPage({ error: 'OOOOOOOO' });
+export default withRouter(withStore(SignUpPage));

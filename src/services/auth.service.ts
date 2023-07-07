@@ -4,6 +4,7 @@ import { transformUser } from '../utils/apiAdapters.ts';
 import { UserDTO } from '../api/types.ts';
 import { Dispatch } from '../core/Store.ts';
 import { AppState } from '../types/appTypes.ts';
+import { router } from '../router';
 
 class AuthService {
   async logIn(dispatch, state, payload) {
@@ -25,19 +26,25 @@ class AuthService {
     }
 
     dispatch({ user: transformUser(responseUser as UserDTO) });
+
+    router.go('/mainPage');
   }
 
   async signUp(dispatch, state, action) {
     dispatch({ isLoading: true });
-    const response = await authTransport.signUp(action);
-    console.log(response, 'response');
+    const signUpresponse = await authTransport.signUp(action);
+    console.log(signUpresponse, 'response');
 
-    if (hasError(response)) {
+    if (hasError(signUpresponse)) {
       console.log('Error');
-      dispatch({ loginFormError: response.reason });
+      dispatch({ loginFormError: signUpresponse.reason });
+    } else {
+      window.store.dispatch({ userId: signUpresponse.id });
+      router.go('/mainPage');
     }
-
-    // window.store.dispatch({userId: response.id})
+    //
+    // window.store.dispatch({ userId: signUpresponse.id });
+    // router.go('/mainPage');
   }
 
   logOut(dispatch: Dispatch<AppState>) {

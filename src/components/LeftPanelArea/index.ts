@@ -1,7 +1,9 @@
 import Block from '../../core/Block.ts';
 import template from './left-panel-area.hbs';
-import { chatListHeader } from '../ChatListHeader/index.ts';
-import { chatList } from '../ChatList/index.ts';
+import {chatListHeader} from '../ChatListHeader/index.ts';
+import chatList from '../ChatList/index.ts';
+import { withRouter } from "../../utils/withRouter";
+import { withStore } from "../../utils/withStore";
 
 class LeftPanelArea extends Block {
   // eslint-disable-next-line no-useless-constructor
@@ -20,3 +22,4 @@ class LeftPanelArea extends Block {
 }
 
 export const leftPanelArea = new LeftPanelArea();
+// export default LeftPanelArea);

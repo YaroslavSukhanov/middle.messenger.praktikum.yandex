@@ -1,8 +1,13 @@
 import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus.ts';
 
+export interface BlockClass<P> extends Function {
+  new (props: P): Block<P>;
+  componentName?: string;
+}
+
 // Нельзя создавать экземпляр данного класса
-export class Block<P extends Record<string, any> = any> {
+class Block<P = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -27,6 +32,7 @@ export class Block<P extends Record<string, any> = any> {
     const { props, children } = this.getChildrenAndProps(propsWithChildren);
 
     this.children = children;
+    console.log(children, 'childrennnnn');
     this.props = this.makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -92,7 +98,7 @@ export class Block<P extends Record<string, any> = any> {
     this.componentDidMount();
   }
 
-  componentDidMount() {
+  public componentDidMount() {
   }
 
   public dispatchComponentDidMount() {
@@ -170,6 +176,7 @@ export class Block<P extends Record<string, any> = any> {
         return;
       }
 
+      console.log(component, 'component');
       component.getContent()?.append(...Array.from(stub.childNodes));
 
       stub.replaceWith(component.getContent()!);
@@ -221,6 +228,10 @@ export class Block<P extends Record<string, any> = any> {
       },
 
     });
+  }
+
+  public destroy() {
+    this.element!.remove();
   }
 }
 

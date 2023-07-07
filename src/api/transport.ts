@@ -26,7 +26,7 @@ function queryStringify(data: TDate) {
 
 class HTTPTransport implements IHTTPTransport<TRequestMethod> {
   get = (url: string, options?: TOptions) => {
-    this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
+    return this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
   };
 
   delete = (url: string, options: TOptions) => {

@@ -57,12 +57,12 @@ export class PathRouter {
 
   start() {
     window.onpopstate = (event: any) => {
-      this._onRoute(event.currentTarget?.location.pathname);
+      this.onRoute(event.currentTarget?.location.pathname);
     };
-    this._onRoute(window.location.pathname);
+    this.onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+   private onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
       return;
@@ -74,7 +74,7 @@ export class PathRouter {
 
   go(pathname: string) {
     this.history.pushState({}, '', pathname);
-    this._onRoute(pathname);
+    this.onRoute(pathname);
   }
 
   back() {

@@ -1,8 +1,8 @@
 import { PathRouter } from './core/routing/PathRouter.ts';
-import { signInPage } from './pages/SignInPage/index.ts';
-import { signUpPage } from './pages/SignUpPage/index.ts';
-import { profilePage } from './pages/ProfilePage/index.ts';
-import { mainPage } from './pages/MainPage/index.ts';
+import signInPage from './pages/SignInPage/index.ts';
+import signUpPage from './pages/SignUpPage/index.ts';
+import profilePage from './pages/ProfilePage/index.ts';
+import mainPage from './pages/MainPage/index.ts';
 
 export const router = new PathRouter('#app');
 

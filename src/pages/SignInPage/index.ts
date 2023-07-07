@@ -6,6 +6,10 @@ import {
   setStorage, controlInvalidState, getTip, validate,
 } from '../../utils/index.ts';
 import { authService } from '../../services/auth.service.ts';
+import { withStore } from "../../utils/withStore";
+import { withRouter } from "../../utils/withRouter";
+import { router } from "../../router";
+import { chatsService } from "../../services/chats.service";
 
 type TSignInStore = {
   login: string;
@@ -16,8 +20,12 @@ const signInStore: TSignInStore = {};
 
 class SignInPage extends Block {
   // eslint-disable-next-line no-useless-constructor
-  constructor() {
-    super({});
+  constructor(props) {
+    super(props);
+    console.log(this.props.store.state.user, 'this.props.store.state.user');
+    if (this.props.store.state.user) {
+      this.props.router.go('/mainPage');
+    }
   }
 
   protected init() {
@@ -28,15 +36,15 @@ class SignInPage extends Block {
       value: this.props.loginField,
       events: {
         change: (evt: KeyboardEvent) => {
-          const { value } = evt.target;
-          this.setProps({ loginField: value });
+          const {value} = evt.target;
+          this.setProps({loginField: value});
           setStorage(evt, signInStore);
         },
         focusout: () => {
           const field = this.children.loginField.element.querySelector('input');
-          const invalid = validate([{ [field.name]: field.value }]);
+          const invalid = validate([{[field.name]: field.value}]);
           const errorText = getTip(invalid, field);
-          this.children.loginField.setProps({ error: errorText });
+          this.children.loginField.setProps({error: errorText});
           controlInvalidState(invalid, field);
         },
       },
@@ -49,15 +57,15 @@ class SignInPage extends Block {
       value: this.props.passwordField,
       events: {
         change: (evt: KeyboardEvent) => {
-          const { value } = evt.target;
-          this.setProps({ passwordField: value });
+          const {value} = evt.target;
+          this.setProps({passwordField: value});
           setStorage(evt, signInStore);
         },
         focusout: () => {
           const field = this.children.passwordField.element.querySelector('input');
-          const invalid = validate([{ [field.name]: field.value }]);
+          const invalid = validate([{[field.name]: field.value}]);
           const errorText = getTip(invalid, field);
-          this.children.passwordField.setProps({ error: errorText });
+          this.children.passwordField.setProps({error: errorText});
           controlInvalidState(invalid, field);
         },
       },
@@ -88,6 +96,8 @@ class SignInPage extends Block {
               login: signInStore.login,
               password: signInStore.password,
             });
+
+            window.store.dispatch(chatsService.getChats);
           }
         },
       },
@@ -96,15 +106,17 @@ class SignInPage extends Block {
     this.children.signUpAction = new Action({
       label: 'Sign Up',
       events: {
-        click: () => { console.log(signInStore); },
+        click: () => {
+          router.go('/signUp');
+        },
       },
     });
   }
 
   protected render(): DocumentFragment {
     this.init();
-    return this.compile(template, { ...this.props });
+    return this.compile(template, {...this.props});
   }
 }
 
-export const signInPage = new SignInPage();
+export default withRouter(withStore(SignInPage));

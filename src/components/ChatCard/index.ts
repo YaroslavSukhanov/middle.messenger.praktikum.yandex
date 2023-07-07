@@ -1,5 +1,7 @@
 import Block from '../../core/Block.ts';
 import template from './chat-card.hbs';
+import { withRouter } from '../../utils/withRouter.ts';
+import { withStore } from '../../utils/withStore.ts';
 
 interface ChatCardProps {
   events: {
@@ -20,3 +22,4 @@ export class ChatCard extends Block<ChatCardProps> {
 }
 
 export const chatCard = new ChatCard({ events: { click: () => console.log('onClick') } });
+// export default(ChatCard);

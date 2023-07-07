@@ -6,6 +6,7 @@ export interface AppState {
   isLoading: boolean;
   userId: number | null;
   appIsInited: boolean
+  chats: Array<object>
 }
 
 export const defaultState: AppState = {
@@ -14,4 +15,5 @@ export const defaultState: AppState = {
   isLoading: false,
   userId: null,
   appIsInited: false,
+  chats: [{}],
 };

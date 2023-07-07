@@ -25,8 +25,9 @@ class AuthTransport {
     transport.post(`${baseUrl}signup`, { data, timeout: 1000 });
   }
 
-  getOwnInfo(): void {
-    transport.get(`${baseUrl}user`);
+  getOwnInfo(): object {
+    console.log(transport.get(`${baseUrl}user`), 'transport.getuser`)');
+    return transport.get(`${baseUrl}user`);
   }
 
   logOut(): void {
